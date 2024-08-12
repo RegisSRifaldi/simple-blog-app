@@ -16,7 +16,7 @@ Route::get('/about', function () {
 
 Route::get('/posts', function () {
     // Eager Loading Not Lazy Loading = $post = Post::with(['author', 'category'])->latest()->get();
-    return view('posts', ['title' => 'Blog', 'posts' => Post::filter(request(['search', 'category', 'author']))->latest()->get()]);
+    return view('posts', ['title' => 'Blog', 'posts' => Post::filter(request(['search', 'category', 'author']))->latest()->paginate(9)->withQueryString()]);
 });
 
 Route::get('/posts/{post:slug}', function (Post $post) {
